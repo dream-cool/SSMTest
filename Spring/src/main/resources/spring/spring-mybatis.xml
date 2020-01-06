@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.1.xsd
+        http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+    <!--启动注解-->
+
+    <context:component-scan base-package="com.clt.mapper"></context:component-scan>
+    <context:component-scan base-package="com.clt.service"></context:component-scan>
+
+    <!--引入数据库相关信息配置文件-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <bean id="dataSorce" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!--c3p0连接池的私有属性-->
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+        <!--关闭连接后不自动-->
+        <property name="autoCommitOnClose" value="false"/>
+        <!--获取连接超时时间-->
+        <property name="checkoutTimeout" value="100000"/>
+        <!--当获取连接失败重试次数-->
+        <property name="acquireRetryAttempts" value="2"/>
+     </bean>
+
+    <!--整合mybatis-->
+    <!--注入一股mybatis的sqlsessionfactory-->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSorce"/>
+        <!--引入mapper文件 ，表明引入com/clt.mapper下的任意子包下的任意xml文件-->
+        <property name="mapperLocations" value="classpath:com/clt/mapper/**/*.xml"/>
+        <property name="configuration">
+            <bean class="org.apache.ibatis.session.Configuration">
+                <!--加入驼峰命名 亦代表以前的mybatis-cfg xml文件下的相关配置均转移到这来-->
+                <property name="mapUnderscoreToCamelCase" value="true"/>
+                <!--<property name="logImpl" value="org.apache.log4j.Logger"/>-->
+                <property name="cacheEnabled" value="true"/>
+            </bean>
+        </property>
+
+        <!--插件配置-->
+        <property name="plugins">
+            <array>
+                <!--分页插件配置  这里可能存在错误-->
+                <!--<bean class="com.github.pagehelper.PageHelper">-->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>
+                            helpDialect=mysql
+                            reasonable=true
+                            supportMethodsArguments=true
+                            params=count=countSql
+                            autoRuntimeDialect=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <!--持久层接口 扫描com/clt/mapper下任意子包下的任意接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.clt.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+    </bean>
+
+    <!--事务管理 使用数据源事务管理类进行管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSorce"/>
+    </bean>
+    <!--确定事务管理的策略 transaction-manager 指向上面的transactionManager-->
+    <tx:advice transaction-manager="transactionManager" id="transactionAdvice">
+        <!--&lt;!&ndash;事务处理的相关值以及它的传播性&ndash;&gt;-->
+        <tx:attributes>
+            <!--查询相关配置为只读 例如select get query 其他设置异常则回滚-->
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception"/>
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--使用AOP对事务管理的范围进行织入 明确几个点
+    1 对哪些地方需要进行事务管理 execution 书写明确边界
+    2 使用什么策略去管理  使用了tx:advice全部书写于其中， 在我们的aop的advisor 当中只需要去引用这个事务管理者的建议即可-->
+    <aop:config>
+        <aop:pointcut id="txCut" expression="execution(* com.clt.service..*.*(..))"/>
+        <aop:advisor advice-ref="transactionAdvice" pointcut-ref="txCut"/>
+    </aop:config>
+
+    <!--采用注解进行事务管理，请在Service的实现类上加上@Transactional注解-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

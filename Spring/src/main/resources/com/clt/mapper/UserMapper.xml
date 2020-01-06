@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.clt.mapper.UserMapper">
+    <select id="selectLogin" resultType="com.clt.pojo.User">
+        select * from course_design.user where  user_name=#{userName}  and password=#{passWord}
+    </select>
+
+    <select id="selectByuserId" resultType="com.clt.pojo.User">
+        select  * from course_design.user where user_id=#{userId}
+    </select>
+
+    <select id="selectByuserName" resultType="com.clt.pojo.User">
+      select  * from course_design.user where user_name=#{userName}
+    </select>
+
+    <select id="selectAll" resultType="com.clt.pojo.User">
+        select * from  course_design.user
+    </select>
+    <insert id="insertUser" >
+      insert into course_design.user
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="userName != null and userName != ''">
+              user_name,
+          </if>
+          <if test="passWord != null and passWord != ''">
+              password,
+          </if>
+          <if test="email != null and email != ''">
+              email,
+          </if>
+          <if test="tel != null and tel != ''">
+              tel,
+          </if>
+          <if test="address != null and address != ''">
+              address,
+          </if>
+          <if test="regTime != null ">
+              reg_time,
+          </if>
+          <if test="lastLoginTime != null ">
+              lastlogin_time,
+          </if>
+          <if test="sex != null and sex != ''">
+              sex,
+          </if>
+          state,superuser
+
+      </trim>
+      <trim prefix="values(" suffix=")" suffixOverrides=",">
+          <if test="userName != null and userName != ''">
+              #{userName},
+          </if>
+          <if test="passWord != null and passWord != ''">
+              #{passWord},
+          </if>
+          <if test="email != null and email != ''">
+              #{email},
+          </if>
+          <if test="tel != null and tel != ''">
+              #{tel},
+          </if>
+          <if test="address != null and address != ''">
+              #{address},
+          </if>
+          <if test="regTime != null ">
+              #{regTime},
+          </if>
+          <if test="lastLoginTime != null ">
+              #{lastLoginTime},
+          </if>
+          <if test="sex != null and sex != ''">
+              #{sex},
+          </if>
+          1,1
+      </trim>
+    </insert>
+
+    <update id="updateUser"   >
+        update course_design.user set
+                user_name=#{userName},
+                password=#{passWord},
+                email=#{email},
+                tel=#{tel},
+                address=#{address},
+                reg_time=#{regTime},
+                lastlogin_time=#{lastLoginTime},
+                sex=#{sex},
+                state=#{state},
+                superuser=1
+                where user_id=#{userId}
+    </update>
+
+    <delete id="deleteUserByUserId">
+      delete from course_design.user where user_id=#{userId}
+    </delete>
+    <delete id="deleteUserByUserName">
+      delete from course_design.user where user_name=#{userName}
+    </delete>
+
+</mapper>

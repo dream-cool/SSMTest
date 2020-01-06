@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+
+    <properties resource="db.properties"></properties>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="LOG4J"/>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--注册一个简写的类名，可以在其他的mapper文件当中被引用-->
+        <typeAlias type="com.pojo.Girl" alias="girl"></typeAlias>
+    </typeAliases>
+
+    <environments default="dev">
+        <environment id="dev">
+            <!--使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务作用域-->
+            <transactionManager type="JDBC"/>
+            <!--使用数据池，复用实例-->
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="${db_driver}" />
+                <property name="url" value="${db_url}"/>
+                <property name="username" value="${db_username}"/>
+                <property name="password" value="${db_password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+
+        <mapper resource="mapper/GirlMapper.xml"></mapper>
+        <mapper resource="mapper/AddressesMapper.xml"></mapper>
+        <mapper resource="mapper/UserMapper.xml"></mapper>
+        <mapper resource="mapper/PorductMapper.xml"></mapper>
+
+    </mappers>
+
+</configuration>
+

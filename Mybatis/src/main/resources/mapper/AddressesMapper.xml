@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.AddressesMapper">
+
+    <cache
+            flushInterval="1000"/>
+    <select id="selectByid" resultType="com.pojo.Addresses">
+    select  * from address where  addr_id=#{addrId};
+    </select>
+    
+    <select id="selectByCountryCity" resultType="com.pojo.Addresses">
+        select * from address
+        <where>
+        <if test="city != null and city != ''">
+            and city=#{city}
+        </if>
+
+        <if test="country != null and country != ''">
+            and country=#{country}
+        </if>
+        </where>
+
+    </select>
+
+    <update id="update" parameterType="com.pojo.Addresses">
+
+      update  address
+      <set>
+          <if test="city != null and city != ''">
+              city=#{city},
+          </if>
+          <if test="country != null and country != ''">
+              country=#{country},
+          </if>
+          <if test="state != null and state != ''">
+              state=#{state},
+          </if>
+          <if test="street != null and street != ''">
+              street=#{street},
+          </if>
+          <if test="zip != null and zip != ''">
+              zip={zip},
+          </if>
+      </set>
+
+      <where>
+          addr_id=#{addrId}
+      </where>
+
+    </update>
+
+    <select id="select" resultType="com.pojo.Addresses">
+        select  * from address
+        <where>
+            <choose>
+                <when test="country != null and country != ''">
+                    and country=#{country}
+                </when>
+                <when test="city != null and city != ''">
+                    and city=#{city}
+                </when>
+                <otherwise>
+                    and state=#{state}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="selecttrim" resultType="com.pojo.Addresses">
+        SELECT * FROM address
+        <trim prefix="WHERE" prefixOverrides="AND">
+
+            <if test="city != null and city != ''">
+                and city=#{city}
+            </if>
+
+            <if test="country != null and country != ''">
+                and country=#{country}
+            </if>
+
+        </trim>
+    </select>
+
+    <select id="selectByIds" resultType="com.pojo.Addresses">
+        select * from address
+        <where>
+            addr_id in
+            <foreach collection="list" open="(" close=")" item="item" separator="," >
+              #{item}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="selectLike" resultType="com.pojo.Addresses">
+        select * from address
+        <where>
+            city like concat('%',#{city},'%')
+        </where>
+    </select>
+
+    <!--<select id="selectLike" resultType="com.pojo.Addresses">-->
+
+        <!--<bind name="_city" value="'%'+city+'%'"/>-->
+        <!--select * from address-->
+        <!--<where>-->
+            <!--city like #{_city}-->
+        <!--</where>-->
+    <!--</select>-->
+
+
+
+
+    <sql id="useColumn">
+        city,country
+    </sql>
+
+    <select id="selectall" resultType="com.pojo.Addresses">
+        select <include refid="useColumn"/> from address
+    </select>
+
+
+
+</mapper>

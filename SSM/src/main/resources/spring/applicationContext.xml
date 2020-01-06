@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <!--引入spring和其它整合的配置文件-->
+
+    <import resource="classpath:spring/spring-*.xml"/>
+	
+	<alias name="dog" alias="gdog"/>
+
+        <bean class="com.clt.pojo.Girl" id="girl" name="girl3 girl4" lazy-init="true" scope="prototype" >
+                <property name="age" value="10"/>
+                <property name="dog" ref="dog"/>
+         </bean>
+
+        <bean class="com.clt.pojo.Girl" id="girlc"  >
+                <constructor-arg name="name" value="烦"/>
+                <constructor-arg name="age" value="10"/>
+        </bean>
+
+        <bean class="com.clt.pojo.PrettyGirl" id="girl1"  abstract="true" destroy-method="destory" lazy-init="false" >
+                <property name="age" value="10"/>
+        </bean>
+
+        <bean class="com.clt.pojo.PrettyGirl" id="girl2"  parent="girl1" >
+                <property name="name" value="我"/>
+        </bean>
+
+        <bean class="com.clt.pojo.Dog" id="dog" >
+                <property name="name" value="哮天犬"/>
+        </bean>
+        <bean class="com.clt.pojo.Dog" id="dog2" >
+                <property name="name" value="哮犬"/>
+        </bean>
+
+        <bean class="com.clt.pojo.Dog" id="dog1" >
+                <constructor-arg name="name" value="wc"/>
+        </bean>
+
+        <bean class="com.clt.pojo.People" id="people">
+                <property name="name" value="陈留涛"/>
+                <property name="age" value="10"/>
+                <property name="friends">
+                        <array>
+                                <value>刘德华</value>
+                                <value>郭富城</value>
+                                <value>张学友</value>
+                                <value>张国荣</value>
+                        </array>
+                </property>
+                <property name="numbers">
+                       <list>
+                               <value>8</value>
+                               <value>8</value>
+                               <value>8</value>
+                       </list>
+                </property>
+                <property name="dogs">
+                        <list>
+                                <bean class="com.clt.pojo.Dog">
+                                        <property name="name" value="sfsf"/>
+                                </bean>
+                                <bean class="com.clt.pojo.Dog">
+                                        <property name="name" value="sfsf"/>
+                                </bean>
+                        </list>
+                </property>
+                <property name="dogSet">
+                        <set>
+                                <bean class="com.clt.pojo.Dog">
+                                        <property name="name" value="哮天犬"/>
+                                </bean>
+                                <bean class="com.clt.pojo.Dog">
+                                        <property name="name" value="sd"/>
+                                </bean>
+                        </set>
+                </property>
+                <property name="dogMap">
+                        <map>
+                                <entry key="1">
+                                        <bean class="com.clt.pojo.Dog">
+                                                <property name="name" value="啊狗"/>
+                                        </bean>
+                                </entry>
+                                <entry key="2">
+                                        <bean class="com.clt.pojo.Dog">
+                                                <property name="name" value="阿猫"/>
+                                        </bean>
+                                </entry>
+                        </map>
+                </property>
+        </bean>
+
+
+</beans>

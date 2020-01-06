@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.UserMapper">
+
+        <resultMap id="userbaseMap" type="com.pojo.User">
+        <id property="uId" column="user_id"/>
+        <result property="tel" column="tel"/>
+        <result property="password" column="password"/>
+        <result property="createtime" column="create_time"/>
+        <result property="states" column="states"/>
+       </resultMap>
+
+        <resultMap id="userWithBlog"  type="com.pojo.UserBlog">
+        <id property="uId" column="uid"/>
+        <result property="tel" column="tel"/>
+        <result property="password" column="password"/>
+        <result property="createtime" column="create_time"/>
+        <result property="states" column="states"/>
+        <collection property="blogs" ofType="com.pojo.Blog">
+            <id property="id" column="bid"/>
+            <result property="title" column="title"/>
+            <result property="summary" column="summary"/>
+            <result property="u_id" column="u_id"/>
+            <result property="content" column="blogcontent"/>
+            <collection property="comments" ofType="com.pojo.Comment">
+                <id property="id" column="cid"/>
+                <result property="b_id" column="b_id"/>
+                <result property="content" column="commentcontent"/>
+            </collection>
+        </collection>
+        </resultMap>
+
+        <select id="selectByIdWithBlog" resultMap="userWithBlog">
+            select t1.user_id as uid,t1.tel,t1.password,t1.create_time,
+            t1.states,t2.id as bid,t2.title,t2.summary,t2.u_id,t2.content as blogcontent,
+            t3.id as cid,t3.b_id,t3.content as commentcontent
+            from  user t1,blog t2,comment t3
+            <where>
+                t1.user_id=t2.u_id and  t2.id=t3.b_id and t1.user_id=#{id}
+            </where>
+        </select>
+
+        <resultMap id="userWithDetailMap" type="com.pojo.UserWithDetail">
+            <id property="uId" column="user_id"/>
+            <result property="tel" column="tel"/>
+            <result property="password" column="password"/>
+            <result property="createtime" column="create_time"/>
+            <result property="states" column="states"/>
+
+            <association property="userDetail" javaType="com.pojo.UserDetail">
+                <id property="udId" column="ud_Id"/>
+                <result property="address" column="address"/>
+                <result property="cid" column="cid"/>
+            </association>
+        </resultMap>
+
+
+        <select id="selectById" resultMap="userWithDetailMap">
+            select t1.user_id ,t1.tel,t1.password, t1.create_time,t1.states,t2.ud_id ,t2.address,t2.cid
+            from user t1, user_detail t2
+            <where>
+                t1.user_id=t2.u_id
+                and
+                t1.user_id=#{id}
+            </where>
+        </select>
+
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="com.clt.pojo.Girl" id="girl1" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl2" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl3" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl4" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl5" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl6" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl7" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl8" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl9" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl11" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl12"  lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl13" lazy-init="true" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl14" lazy-init="true">
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+</beans>

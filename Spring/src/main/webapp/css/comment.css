@@ -1,0 +1,23 @@
+a{
+	text-decoration: none;
+	font-size: 20px;
+}
+.container {
+width: 100%;
+margin: 50px auto;
+overflow: hidden;
+}
+div span {
+display: block;
+width: 300px;
+height: 300px;
+background-color: ;
+float: left;
+margin-left: 10px;
+}
+div>span+span {
+margin-left: 20px;
+}
+body{
+background:#D8BCBC;
+}

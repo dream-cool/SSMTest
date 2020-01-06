@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.clt.pojo.Girl" id="girl1" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl2" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl3" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl4" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl5" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl6" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl7" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl8" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl9" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl11" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl12" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl13" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+    <bean class="com.clt.pojo.Girl" id="girl14" >
+        <property name="age" value="10"/>
+        <property name="name" value="fsf "/>
+    </bean>
+
+</beans>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.clt.mapper.ProductMapper">
+
+    <select id="select" resultType="com.clt.pojo.Product">
+       select * from course_design.product
+        <where>
+            <if test="price != null and price != ''">
+                and price &lt; #{price}
+            </if>
+            <if test="category != null and category != ''">
+                and category =#{category}
+            </if>
+            <if test="categoryno != null and categoryno != ''">
+            and categoryno =#{categoryno}
+            </if>
+            <if test="color != null and color != ''">
+                and  color=#{color}
+            </if>
+            <if test="salecount != null and salecount != ''">
+                and  salecount>#{salecount}
+            </if>
+            <if test="saletime != null and saletime != ''">
+                and  saletime>#{saletime}
+            </if>
+            <if test="size != null and size != ''">
+            and  size=#{size}
+            </if>
+            <if test="context != null and context != ''">
+                and  productname like concat("%",#{context},"%") or color like concat("%",#{context},"%")
+                      or price like concat("%",#{context},"%")
+            </if>
+        </where>
+        <trim prefix="order by" prefixOverrides="order by" suffixOverrides=",">
+            <if test="priceorder == 'desc'">
+                price desc ,
+            </if>
+            <if test="priceorder == 'asc' ">
+                price asc ,
+            </if>
+            <if test="countorder == 'desc' ">
+                salecount desc ,
+            </if>
+            <if test="countorder == 'asc' ">
+                salecount asc ,
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectAll" resultType="com.clt.pojo.Product">
+        select * from course_design.product
+    </select>
+ </mapper>

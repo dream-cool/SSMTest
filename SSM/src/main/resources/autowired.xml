@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.clt.pojo.User" name="user" autowire="byName" >
+        <property name="userName" value="陈辉"/>
+        <property name="address" value="长沙"/>
+    </bean>
+    <bean class="com.clt.pojo.Dog" id="dog"  >
+        <property name="name" value="消息"/>
+        <property name="age" value="10"/>
+    </bean>
+    <bean class="com.clt.pojo.Dog" id="dog2"  primary="true">
+        <property name="name" value="消息"/>
+        <property name="age" value="11"/>
+    </bean>
+
+
+
+    <!--<bean class="com.clt.pojo.User" name="userc" autowire="constructor" >-->
+        <!--<constructor-arg name="name" value="查询"/>-->
+    <!--</bean>-->
+
+    <bean class="com.clt.pojo.User" name="userd">
+    </bean>
+
+    <bean class="com.clt.service.ProvideService" id="provideService" autowire="byType" >
+    </bean>
+
+    <bean class="com.clt.pojo.PrivderDao" >
+    </bean>
+</beans>

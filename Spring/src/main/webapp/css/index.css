@@ -1,0 +1,154 @@
+﻿		@charset "utf-8";
+/* CSS Document */
+
+ul li{
+	list-style: none;
+}
+/*去掉超链接的下划线*/
+a{
+	text-decoration: none;
+	font-size: 20px;
+}
+*{
+	padding-left:0;/*内边距*/
+	margin: 0;/*外边距*/
+}
+#navul{
+	text-align:left;
+	font-family:"宋体";
+	margin:0px;
+	font-size:5%;
+	width:80%;
+	list-style:none;
+	float:left;
+	margin-top:10px;
+	}
+#navul li{
+	color: #DF696B;
+	font-size: 30px;
+	line-height:35px;
+	height:40px;
+	width:150px;
+	float:left;
+	list-style:none;
+	margin-left: 0px;
+	margin-top:0px;
+	}
+
+#navul li:hover{
+	font-family:"宋体";
+	background:#F74B4E;
+	}
+#navul li a{
+	font-size:20px;
+	text-decoration:none;
+	color:#000;
+	}
+#navul li ul{
+	text-align:left;
+	font-family:"宋体";
+	display:none;
+	margin-left:0px;
+	padding:0px;
+	list-style:none;
+	width:50px;
+	}
+#navul li ul li{
+	text-align:left;
+	font-size:25px;
+	opacity:0.9;
+	background:#0F9;
+	border:1px solid #9CDD75;
+	width:100px;
+	color:#AB696A;
+	margin-left:0px;
+	}
+.nav_ul li{
+    margin-left:50px;
+	text-align:left;
+	width: 40px;
+	height: 50px;
+	display: inline;
+	border-right: 0px solid white;
+	font-size: 20px;
+}
+#lookupbtn{
+	font-family:"宋体";
+	width:100px;
+    height:45px;
+	background:#DC6C6D;
+	color:white;
+	font-size:25px;
+	margin-top=22px;
+	margin-right:10px;
+    cursor:pointer;
+	}
+#lookuptxt{
+	font-family:"宋体";
+	text-align:left;
+	margin:0px auto;
+	padding-right:80px;
+	}
+#container #lookuptxt #choosetxt {
+	font-family:"宋体";
+	font-size: 25px;
+	margin-left:0px;
+}
+#choosetxt{
+	font-family:"宋体";
+	 margin-left:30px;
+	 margin:0px auto;
+	 height:40px;
+	 width:70%;
+	 margin-top:12px;
+	 border:2px solid;
+	}
+#container #req_form label {
+    margin-top:5px;
+	color: #C03F41;
+	font-family:"宋体";
+	font-size: 25px;
+}
+#container #req_form select {
+    margin-top:5px;
+	font-family:"宋体";
+	font-size: 25px;
+	width: 150px;
+    color:#CB6567;
+
+}
+#container{
+	font-family:"宋体";
+	color: black;
+	width: 100%;
+	float: left;
+}
+#navigation{
+	font-family:"宋体";
+	height: 35px;
+	width: 100%;
+	background-color:#CF5A5C;
+	margin-top: 2px;
+	margin-left: 0px;
+	}
+.content {
+margin-top:600px;
+width: 100%;
+margin: 50px auto;
+overflow: hidden;
+}
+div span {
+display: block;
+width: 300px;
+height: 300px;
+background-color: ;
+float: left;
+margin-left: 10px;
+
+}
+div>span+span {
+margin-left: 20px;
+}
+body{
+background:#D8BCBC;
+}
